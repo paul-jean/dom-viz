@@ -1,9 +1,13 @@
-var greeting = "hola, ";
 var button = document.getElementById("mybutton");
-button.person_name = "Roberto";
-button.addEventListener("click", function() {
-  button.style["background-color"] = "lightblue";
-  console.log(button.name);
-  alert(greeting + button.person_name + ".");
-}, false);
+// https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
+var observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    console.log(mutation.type);
+  });
+});
+var config = {attributes:true, childList:true, characterData:true};
+observer.observe(button, config);
 
+button.style["background-color"] = "lightblue";
+
+//observer.disconnect();

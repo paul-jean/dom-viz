@@ -1,0 +1,11 @@
+<html>
+  <button id="mybutton">click me</button>
+  <script>
+    var greeting = "hello, ";
+    var button = document.getElementById("mybutton");
+    button.person_name = "Bob";
+    button.addEventListener("click", function() {
+        alert(greeting + button.person_name + ".");
+        }, false);
+  </script>
+</html>

@@ -7,7 +7,7 @@
 
   "content_scripts": [
     {
-      "matches": ["http://localhost:8000/hello.html"],
+      "matches": ["http://localhost:8000/domviz.html"],
       "js": ["button_listen.js"]
     }
   ]
