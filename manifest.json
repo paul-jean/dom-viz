@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+
+  "name": "button",
+  "description": "",
+  "version": "1.0",
+
+  "content_scripts": [
+    {
+      "matches": ["http://localhost:8000/hello.html"],
+      "js": ["button_listen.js"]
+    }
+  ]
+}
