@@ -1,6 +1,8 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
 var observer = new MutationObserver(function(mutations) {
   mutations.forEach(function(mutation) {
+    mutation.target.style["border"] = "5px solid";
+    mutation.target.style["border-color"] = "red";
     console.log("style background-color = " + mutation.target.style["background-color"]);
   });
 });
