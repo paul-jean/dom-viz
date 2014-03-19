@@ -1,14 +1,22 @@
 <html>
-  <button id="mybutton" onclick="toggleText(this);">click me</button>
-  <script>
-    // http://stackoverflow.com/questions/12679813/how-to-change-button-text-or-link-text-in-javascript
-    var toggleText = function(elem) {
-      //var elem = document.getElementById("mybutton");
-      if (elem.firstChild.data == "click me") {
-        console.log("clicked!");
-        elem.firstChild.data = "click again";
+  <head>
+    <script>
+      // http://stackoverflow.com/questions/12679813/how-to-change-button-text-or-link-text-in-javascript
+    var toggleColor = function() {
+      var square = document.getElementById("square");
+      if (square.style["background-color"] == "rgb(85, 255, 85)") {
+        console.log("background-color = " + square.style["background-color"]);
+        square.style["background-color"] = "rgb(255, 85, 85)";
       }
-      else elem.firstChild.data = "click me";
+      else
+        square.style["background-color"] = "rgb(85, 255, 85)";
     }
-  </script>
+    </script>
+  </head>
+  <body>
+    <div>
+      <button id="mybutton" onclick="toggleColor();">toggle color</button>
+    </div>
+    <div id="square" style="width:100px; height:100px; background-color:rgb(85, 255, 85);"></div>
+  </body>
 </html>
