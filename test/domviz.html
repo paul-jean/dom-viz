@@ -1,11 +1,14 @@
 <html>
-  <button id="mybutton">click me</button>
+  <button id="mybutton" onclick="toggleText(this);">click me</button>
   <script>
-    var greeting = "hello, ";
-    var button = document.getElementById("mybutton");
-    button.person_name = "Bob";
-    button.addEventListener("click", function() {
-        alert(greeting + button.person_name + ".");
-        }, false);
+    // http://stackoverflow.com/questions/12679813/how-to-change-button-text-or-link-text-in-javascript
+    var toggleText = function(elem) {
+      //var elem = document.getElementById("mybutton");
+      if (elem.firstChild.data == "click me") {
+        console.log("clicked!");
+        elem.firstChild.data = "click again";
+      }
+      else elem.firstChild.data = "click me";
+    }
   </script>
 </html>
