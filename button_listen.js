@@ -1,14 +1,18 @@
-// https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
-var observer = new MutationObserver(function(mutations) {
-  mutations.forEach(function(mutation) {
-    mutation.target.style["border"] = "5px solid";
-    mutation.target.style["border-color"] = "red";
-    console.log("style background-color = " + mutation.target.style["background-color"]);
+var styleReactor = function(summaries) {
+  console.log(summaries);
+  mutationSummary = summaries[0];
+  console.log(mutationSummary);
+  mutationSummary.attributeChanged.forEach(function(changedElement) {
+    console.log(changedElement);
+    changedElement.style["border"] = "5px solid";
+    changedElement.style["border-color"] = "red";
   });
+};
+
+// https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
+var observer = new MutationSummary({
+  callback: styleReactor,
+  queries: [
+    {all: true}
+  ]
 });
-var config = {attributes:true, childList:true, characterData:true};
-var square = document.getElementById("square");
-observer.observe(square, config);
-
-
-//observer.disconnect();
