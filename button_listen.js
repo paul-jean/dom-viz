@@ -1,33 +1,31 @@
-// Yanked from "Javascript The Good Parts" p. 38
-var fade = function(node) {
-  var level = 1;
-  var step = function() {
-    var hex = level.toString(16);
-    node.style["border-color"] = '#FFFF' + hex + hex;
-    if (level < 15) {
-      level += 1;
-      setTimeout(step, 1000);
-    }
-  };
-  setTimeout(step, 1000);
-};
-
 var styleReactor = function(summaries) {
   mutationSummary = summaries[0];
   mutationSummary.valueChanged.forEach(function(changedElement) {
     console.log("styleReactor");
+    if (changedElement.getAttribute("myUpdateQ")) return;
+    var myAttr = document.createAttribute("myUpdateQ");
+    myAttr.value = true;
+    changedElement.setAttributeNode(myAttr);
+    console.log("element name = " + changedElement.id);
+    console.log("myUpdateQ = " + changedElement.getAttribute("myUpdateQ"));
+    var oldBorder = changedElement.style["border"];
+    var oldColor = changedElement.style["border-color"];
     changedElement.style["border"] = "3px solid";
     var level = 1;
-    var intervalId = setInterval(function() {
+    var fade = function() {
+      console.log("level = " + level);
       var hex = level.toString(16);
-      if (level < 15) {
-        changedElement.style["border-color"] = '#FFFF' + hex + hex;
-        level += 1;
-      } else {
-        clearInterval(intervalId);
+      //changedElement.style["border-color"] = '#FFFF' + hex + hex;
+      if (level == 14) {
+        myAttr.value = false;
+        changedElement.setAttributeNode(myAttr);
+        clearInterval(intId);
       }
-    }, 1000);
-    //changedElement.style["border"] = "0px";
+      level ++;
+    };
+    setInterval(fade, 1000);
+    changedElement.style["border"] = oldBorder;
+    changedElement.style["border-color"] = oldColor;
   });
 };
 
