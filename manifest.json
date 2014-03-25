@@ -11,7 +11,10 @@
       "js": [
         "/mutation-summary/src/mutation-summary.js",
         "button_listen.js"
-      ]
+      ],
+      "css": ["style/animation-styles.css"]
     }
-  ]
+  ],
+
+  "web_accessible_resources": ["style/animation-styles.css"]
 }

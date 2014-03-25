@@ -1,16 +1,30 @@
 var styleReactor = function(summaries) {
   mutationSummary = summaries[0];
+  console.log(mutationSummary);
   mutationSummary.valueChanged.forEach(function(changedElement) {
-    var oldColor = changedElement.style['border-color'];
-    var oldWidth = changedElement.style['border-width'];
-    console.log('oldColor = ' + oldColor);
-    console.log('oldWidth = ' + oldWidth);
-    //changedElement.style['border-color'] = "red";
-    //changedElement.style['border-width'] = "5px";
 
-    changedElement.style.webkitTransition = "border-color 2s";
-    changedElement.style['border-color'] = "yellow";
-    //changedElement.style['border-color'] = oldColor;
+    var oldBorderStyle;
+    changedElement.className = 'highlight';
+      changedElement.style['border-style'] = 'solid';
+
+    var beginAnimListen = function() {
+      oldBorderStyle = changedElement.style['border-style'];
+      console.log('oldBorderStyle = ' + oldBorderStyle);
+      changedElement.style['border-style'] = 'solid';
+    };
+
+    var endAnimListen = function() {
+      changedElement.style['border-style'] = oldBorderStyle;
+    };
+
+    changedElement.addEventListener('animationstart', beginAnimListen, false);
+    changedElement.addEventListener('animationend', endAnimListen, false);
+
+    changedElement.style.webkitAnimationName = 'highlight';
+    changedElement.style.webkitAnimationDuration = '1s';
+    changedElement.style.webkitAnimationDirection = 'normal';
+    changedElement.style.webkitAnimationIterationCount = '1';
+
   });
 };
 
