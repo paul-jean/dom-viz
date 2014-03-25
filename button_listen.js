@@ -1,17 +1,16 @@
 var styleReactor = function(summaries) {
-  console.log("event fired");
   mutationSummary = summaries[0];
   mutationSummary.valueChanged.forEach(function(changedElement) {
-    var oldBorder = changedElement.style["border"];
-    console.log(oldBorder);
+    var oldColor = changedElement.style['border-color'];
+    var oldWidth = changedElement.style['border-width'];
+    console.log('oldColor = ' + oldColor);
+    console.log('oldWidth = ' + oldWidth);
+    //changedElement.style['border-color'] = "red";
+    //changedElement.style['border-width'] = "5px";
 
-    changedElement.style["border"] = "thick solid yellow";
     changedElement.style.webkitTransition = "border-color 2s";
-
-    setTimeout(function() {
-      changedElement.style["border"] = oldBorder;
-    }, 2000);
-
+    changedElement.style['border-color'] = "yellow";
+    //changedElement.style['border-color'] = oldColor;
   });
 };
 
