@@ -1,3 +1,5 @@
+var effect = 'wobble';
+
 var styleReactor = function(summaries) {
   mutationSummary = summaries[0];
   mutationSummary.valueChanged.forEach(function(changedElement) {
@@ -6,8 +8,8 @@ var styleReactor = function(summaries) {
       return;
 
     // Add my css keyframes tag to the element's classes:
-    if (!changedElement.className.match('highlight'))
-      changedElement.className += changedElement.className ? ' highlight': 'highlight';
+    if (!changedElement.className.match(effect))
+      changedElement.className += changedElement.className ? ' ' + effect : effect;
     // Add a solid border so my highlight animation can style it:
     if (!changedElement.className.match('framed'))
       changedElement.className += ' framed';
@@ -24,7 +26,7 @@ var styleReactor = function(summaries) {
       if (changedElement.className) {
         // TODO this may leave some whitespace in the class name
         changedElement.className = changedElement.className.replace('animating', '');
-        changedElement.className = changedElement.className.replace('highlight', '');
+        changedElement.className = changedElement.className.replace(effect, '');
         changedElement.className = changedElement.className.replace('framed', '');
       }
       // ... remove animation event listeners:
