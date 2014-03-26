@@ -1,30 +1,41 @@
 var styleReactor = function(summaries) {
   mutationSummary = summaries[0];
-  console.log(mutationSummary);
   mutationSummary.valueChanged.forEach(function(changedElement) {
+    // If I'm currently changing this element, don't do anything:
+    if (changedElement.className && changedElement.className.match(/animating/))
+      return;
 
-    var oldBorderStyle;
-    changedElement.className = 'highlight';
-      changedElement.style['border-style'] = 'solid';
+    // Add my css keyframes tag to the element's classes:
+    if (!changedElement.className.match('highlight'))
+      changedElement.className += changedElement.className ? ' highlight': 'highlight';
+    // Add a solid border so my highlight animation can style it:
+    if (!changedElement.className.match('framed'))
+      changedElement.className += ' framed';
 
+    // When the animation starts ...
     var beginAnimListen = function() {
-      oldBorderStyle = changedElement.style['border-style'];
-      console.log('oldBorderStyle = ' + oldBorderStyle);
-      changedElement.style['border-style'] = 'solid';
+      // ... add a class to flag it as currently animating:
+      changedElement.className += changedElement.className ? ' animating': 'animating';
     };
 
+    // When the animation ends ...
     var endAnimListen = function() {
-      changedElement.style['border-style'] = oldBorderStyle;
+      // ... remove the classes I added:
+      if (changedElement.className) {
+        // TODO this may leave some whitespace in the class name
+        changedElement.className = changedElement.className.replace('animating', '');
+        changedElement.className = changedElement.className.replace('highlight', '');
+        changedElement.className = changedElement.className.replace('framed', '');
+      }
+      // ... remove animation event listeners:
+      changedElement.removeEventListener('webkitAnimationStart', beginAnimListen);
+      changedElement.removeEventListener('webkitAnimationEnd', endAnimListen);
     };
 
-    changedElement.addEventListener('animationstart', beginAnimListen, false);
-    changedElement.addEventListener('animationend', endAnimListen, false);
-
-    changedElement.style.webkitAnimationName = 'highlight';
-    changedElement.style.webkitAnimationDuration = '1s';
-    changedElement.style.webkitAnimationDirection = 'normal';
-    changedElement.style.webkitAnimationIterationCount = '1';
-
+    // Add animation event listeners:
+    // http://www.sitepoint.com/css3-animation-javascript-event-handlers/
+    changedElement.addEventListener('webkitAnimationStart', beginAnimListen, false);
+    changedElement.addEventListener('webkitAnimationEnd', endAnimListen, false);
   });
 };
 
@@ -32,6 +43,6 @@ var styleReactor = function(summaries) {
 var observer = new MutationSummary({
   callback: styleReactor,
   queries: [
-    {attribute: "style"}
+    {attribute: 'style'}
   ]
 });
