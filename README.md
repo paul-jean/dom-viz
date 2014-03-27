@@ -7,13 +7,13 @@ API to listen for certain types of DOM mutations
 a CSS3 animation.
 
 # Examples
-Highlighting updated twitter pods:
+### Highlighting updated twitter pods:
 ![Twitter wobble](images/dom-viz-twitter-20140326.gif "Twitter highlight")
 
-Using the wobble highlight effect:
+### Using the wobble highlight effect:
 ![Twitter wobble](images/dom-viz-twitter-wobble-20140326.gif "Twitter wobble highlight")
 
-The wobble highlight being triggered when an element changes color:
+### The wobble highlight being triggered when an element changes color:
 ![Square wobble](images/dom-viz-square-20140326.gif "Square wobble highlight")
 
 # How it works
