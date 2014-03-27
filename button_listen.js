@@ -8,6 +8,7 @@ var reactorDispatch = function(type) {
 };
 
 var highlightElement = function(changedElement) {
+  console.log(changedElement.className);
   // If I'm currently changing this element, don't do anything:
   if (changedElement.className && changedElement.className.match(/animating/))
     return;
@@ -55,7 +56,10 @@ var mutationReactor = function(summaries) {
   mutationSummaries.reordered.forEach(mutationReactor);
   var att = mutationSummaries.attributeChanged;
   for (var k in att) {
-    att[k].forEach(mutationReactor);
+    if (!k.match('class')) {
+      console.log(k);
+      att[k].forEach(mutationReactor);
+    }
   }
 };
 
