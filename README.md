@@ -127,6 +127,8 @@ var highlightElement = function(changedElement) {
   // If I'm currently changing this element, don't do anything:
   if (changedElement.className && changedElement.className.match(/animating/))
     return;
+  ...
+}
 ```
 
 The `MutationSummary` API actually takes care of preventing such recursive callbacks
