@@ -1,4 +1,4 @@
-var effect = 'highlight';
+var effect = 'wobble';
 
 var styleReactor = function(summaries) {
   mutationSummary = summaries[0];
