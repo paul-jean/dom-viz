@@ -46,34 +46,23 @@ var highlightElement = function(changedElement) {
 };
 
 var mutationReactor = function(summaries) {
-  // DOM element style updates:
-  var styleSummaries = summaries[0];
-  var styleReactor = reactorDispatch('style');
-  styleSummaries.valueChanged.forEach(styleReactor);
-  styleSummaries.added.forEach(styleReactor);
-  styleSummaries.removed.forEach(styleReactor);
-
-  // DOM elements added:
-  var elementSummaries = summaries[1];
-  var addReactor = reactorDispatch('add');
-  elementSummaries.added.forEach(addReactor);
-  elementSummaries.removed.forEach(addReactor);
-  elementSummaries.reparented.forEach(addReactor);
-
-  // CharacterData elements changed:
-  /*
-  var characterSummaries = summaries[2];
-  var characterReactor = reactorDispatch('character');
-  characterSummaries.valueChanged.forEach(characterReactor);
-  */
+  // All DOM element style updates:
+  var mutationSummaries = summaries[0];
+  var mutationReactor = reactorDispatch('style');
+  mutationSummaries.added.forEach(mutationReactor);
+  mutationSummaries.removed.forEach(mutationReactor);
+  mutationSummaries.reparented.forEach(mutationReactor);
+  mutationSummaries.reordered.forEach(mutationReactor);
+  var att = mutationSummaries.attributeChanged;
+  for (var k in att) {
+    att[k].forEach(mutationReactor);
+  }
 };
 
 // https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
 var observer = new MutationSummary({
   callback: mutationReactor,
   queries: [
-    {attribute: 'style'},
-    {element: '*'}
-    //{characterData: true}
+    {all: true}
   ]
 });
