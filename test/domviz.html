@@ -8,12 +8,25 @@
       }
       else
         square.style["background-color"] = "rgb(85, 255, 85)";
-    }
+    };
+
+    var addItem = function() {
+      var ul = document.getElementById("list");
+      var newItem = document.createElement('li');
+      newItem.innerHTML = "another item";
+      ul.appendChild(newItem);
+    };
   </script>
   <body>
     <div>
       <button id="mybutton" onclick="toggleColor();">toggle color</button>
     </div>
     <div id="square" style="width:100px; height:100px; background-color:rgb(85, 255, 85);"></div>
+    <div style="float: left">
+      <button onclick="addItem();">add item</button>
+      <ul id="list">
+        <li> Item 1 </li>
+      </ul>
+    </div>
   </body>
 </html>

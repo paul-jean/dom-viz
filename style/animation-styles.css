@@ -1,7 +1,7 @@
 .framed {
   outline-style: solid;
   outline-color: yellow;
-  -webkit-animation: wobble 1s 1 normal;
+  -webkit-animation: highlight 1s 1 normal;
 }
 
 @-webkit-keyframes highlight {
