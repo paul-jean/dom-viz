@@ -18,7 +18,7 @@ The wobble highlight being triggered when an element changes color:
 
 # How it works
 
-## MutationSummary observer
+### MutationSummary observer
 
 The MutationSummary API exposes the `MutationSummary` object, which observes the DOM
 for changes and calls your provided callback function.
@@ -60,9 +60,79 @@ var mutationReactor = function(summaries) {
 ```
 
 My callback consumes the array of mutation summary objects, iterating through
-each update type. For the element style mutations, there are `valueChanged`,
+each update type. For the element style mutations for example, there are `valueChanged`,
 `added`, and `removed` update types.
 
+The "reactorDispatch" function is responsible for returning callback functions
+to use for each type of update to handle. Right now each type of update is handled
+by the same underlying callback, which highlights the element with a yellow border:
+
+```javascript
+var reactorDispatch = function(type) {
+  if (type == 'style') return highlightElement;
+  else if (type == 'add') return highlightElement;
+  else if (type == 'character') return highlightElement;
+  else return undefined;
+};
+```
+### CSS3 animations
+
+My callback function consumes the element that has changed, and applies a CSS
+animation to the element. Right now the CSS animation simply highlights the
+element border, by toggling a class name on the element that styles the border:
+
+```javascript
+var highlightElement = function(changedElement) {
+  ...
+  // Add a solid border so my highlight animation can style it:
+  if (!changedElement.className.match('framed'))
+    changedElement.className += ' framed';
+  ...
+}
+```
+
+The CSS styles I use are kept within the extension layout (so no styles need
+to be injected into the page being viewed at all):
+
+```css
+.framed {
+  outline-style: solid;
+  outline-color: yellow;
+  -webkit-animation: highlight 1s 1 normal;
+}
+```
+
+To prevent triggering further callbacks from the animation listener, 
+I also toggle a dummy class called "animating" on the element as soon as the
+animation starts:
+
+```javascript
+var highlightElement = function(changedElement) {
+  ...
+  // When the animation starts ...
+  var beginAnimListen = function() {
+    // ... add a class to flag it as currently animating:
+    changedElement.className += changedElement.className ? ' animating': 'animating';
+  };
+  ...
+}
+```
+
+I check for the presence of this dummy class at the start of the callback, and
+if it's there I return immediately, since that means it's been triggered by
+an animation event:
+
+```javascript
+var highlightElement = function(changedElement) {
+  // If I'm currently changing this element, don't do anything:
+  if (changedElement.className && changedElement.className.match(/animating/))
+    return;
+```
+
+The `MutationSummary` API actually takes care of preventing such recursive callbacks
+for you, _as long as_ the changes to the element are made _synchronously_ in the
+callback. The animation listener callbacks happen asynchronously, so the API
+doesn't help there.
 
 ## (A note on creating the above animated gifs)
 
