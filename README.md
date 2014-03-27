@@ -1,8 +1,9 @@
 # DOM viz
 DOM viz is a Chrome extension that visualizes DOM transformations.
 
-It uses the [MutationSummary]() API to listen for certain types of DOM mutations
-(e.g. style attribute changes), and highlights the mutated element using
+It uses the [MutationSummary](https://code.google.com/p/mutation-summary/wiki/APIReference)
+API to listen for certain types of DOM mutations
+(e.g. changes to DOM element style), and highlights the mutated element using
 a CSS3 animation.
 
 # Examples
