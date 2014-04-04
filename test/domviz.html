@@ -16,6 +16,15 @@
       newItem.innerHTML = "another item";
       ul.appendChild(newItem);
     };
+
+    var toggleSVGColor = function() {
+      var rect = document.getElementById("svg_square");
+      if (rect.style.fill.match(/#000000/)) {
+        rect.style.fill = "#FF0000";
+      } else {
+        rect.style.fill = "#000000";
+      }
+    }
   </script>
   <body>
     <div>
@@ -27,6 +36,14 @@
       <ul id="list">
         <li> Item 1 </li>
       </ul>
+    </div>
+    <div style="clear:both; float:left">
+      <button id="svg_button" onclick="toggleSVGColor();">toggle color</button>
+    </div>
+    <div style="clear: both; float: left">
+      <svg width=100 height=100>
+        <rect id="svg_square" width=50 height=50 style="fill:black;" />
+      </svg>
     </div>
   </body>
 </html>

@@ -3,13 +3,28 @@ var effect = 'highlight';
 var reactorDispatch = function(type) {
   if (type == 'style') return highlightElement;
   else if (type == 'add') return highlightElement;
-  else if (type == 'character') return highlightElement;
+  else if (type == 'fill') return highlightSVGElement;
   else return undefined;
 };
 
+var highlightSVGElement = function(changedElement) {
+  /*
+  console.log('[highlightSVGElement] changedElement = ' + changedElement);
+  changedElement.style.stroke = "yellow";
+  changedElement.style["stroke-width"] = "5";
+  */
+};
+
 var highlightElement = function(changedElement) {
+  if (changedElement.constructor.name == 'SVGRectElement') {
+    console.log('[highlightElement] style = ' + changedElement.getAttribute('style'));
+    console.log('[highlightElement] style fill = ' + changedElement.style.fill);
+    console.log('[highlightElement] className = ' + changedElement.getAttribute('className'));
+    console.log('[highlightElement] typeof changedElement = ' + changedElement.constructor.name);
+    console.log('changedElement is an SVGRectElement');
+  }
   // If I'm currently changing this element, don't do anything:
-  if (changedElement.className && changedElement.className.match(/animating/))
+  if (changedElement.getAttribute('className') && changedElement.className.match(/animating/))
     return;
 
   // Add my css keyframes tag to the element's classes:
@@ -46,15 +61,22 @@ var highlightElement = function(changedElement) {
 };
 
 var mutationReactor = function(summaries) {
+
+  // SVG element updates
+  var fillSummaries = summaries[0];
+  var fillReactor = reactorDispatch('fill');
+  fillSummaries.attributeChanged.style.forEach(fillReactor);
+
   // DOM element style updates:
-  var styleSummaries = summaries[0];
+  var styleSummaries = summaries[1];
   var styleReactor = reactorDispatch('style');
   styleSummaries.valueChanged.forEach(styleReactor);
   styleSummaries.added.forEach(styleReactor);
   styleSummaries.removed.forEach(styleReactor);
 
+
   // DOM elements added:
-  var elementSummaries = summaries[1];
+  var elementSummaries = summaries[2];
   var addReactor = reactorDispatch('add');
   elementSummaries.added.forEach(addReactor);
   elementSummaries.removed.forEach(addReactor);
@@ -72,6 +94,7 @@ var mutationReactor = function(summaries) {
 var observer = new MutationSummary({
   callback: mutationReactor,
   queries: [
+    {element: 'rect', elementAttributes: 'style'},
     {attribute: 'style'},
     {element: '*'}
     //{characterData: true}
