@@ -1,7 +1,13 @@
 .framed {
   outline-style: solid;
   outline-color: yellow;
- -webkit-animation: highlight 0.3s 1 normal;
+ -webkit-animation: highlight 0.8s 1 normal;
+}
+
+.framed-addremove {
+  outline-style: solid;
+  outline-color: red;
+ -webkit-animation: highlight-addremove 0.8s 1 normal;
 }
 
 @-webkit-keyframes highlight {
@@ -12,8 +18,26 @@
   }
 
   50% {
-    outline-width: 2px;
+    outline-width: 5px;
     outline-color: yellow;
+  }
+
+  100% {
+    outline-width: 1px;
+    outline-color: white;
+  }
+}
+
+@-webkit-keyframes highlight-addremove {
+
+  0% {
+    outline-width: 1px;
+    outline-color: white;
+  }
+
+  50% {
+    outline-width: 2px;
+    outline-color: red;
   }
 
   100% {
