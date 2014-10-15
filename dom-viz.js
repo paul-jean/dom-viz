@@ -8,11 +8,9 @@ var reactorDispatch = function(type) {
 };
 
 var highlightSVGElement = function(changedElement) {
-  /*
   console.log('[highlightSVGElement] changedElement = ' + changedElement);
   changedElement.style.stroke = "yellow";
   changedElement.style["stroke-width"] = "5";
-  */
 };
 
 var highlightElement = function(changedElement) {
