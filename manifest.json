@@ -4,6 +4,7 @@
   "name": "DOM viz",
   "description": "Visually highlights DOM mutations",
   "version": "1.0",
+  "incognito": "split",
 
   "content_scripts": [
     {
