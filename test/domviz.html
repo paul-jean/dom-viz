@@ -1,41 +1,41 @@
 <html>
-  <script>
-    // http://stackoverflow.com/questions/12679813/how-to-change-button-text-or-link-text-in-javascript
+    <script>
+        // http://stackoverflow.com/questions/12679813/how-to-change-button-text-or-link-text-in-javascript
     var toggleColor = function() {
-      var square = document.getElementById("square");
-      if (square.style["background-color"] == "rgb(85, 255, 85)") {
-        square.style["background-color"] = "rgb(255, 85, 85)";
-      }
-      else
-        square.style["background-color"] = "rgb(85, 255, 85)";
+        var square = document.getElementById("square");
+        if (square.style["background-color"] == "rgb(85, 255, 85)") {
+            square.style["background-color"] = "rgb(255, 85, 85)";
+        }
+        else
+            square.style["background-color"] = "rgb(85, 255, 85)";
     };
 
     var addItem = function() {
-      var ul = document.getElementById("list");
-      var newItem = document.createElement('li');
-      newItem.innerHTML = "another item";
-      ul.appendChild(newItem);
+        var ul = document.getElementById("list");
+        var newItem = document.createElement('li');
+        newItem.innerHTML = "another item";
+        ul.appendChild(newItem);
     };
 
     var toggleSVGColor = function() {
-      var rect = document.getElementById("svg_square");
-      if (rect.style.fill.match(/#000000/)) {
-        rect.style.fill = "#FF0000";
-      } else {
-        rect.style.fill = "#000000";
-      }
+        var rect = document.getElementById("svg_square");
+        if (rect.style.fill.match(/#000000/)) {
+            rect.style.fill = "#FF0000";
+        } else {
+            rect.style.fill = "#000000";
+        }
     }
-  </script>
-  <body>
-    <div>
-      <button id="mybutton" onclick="toggleColor();">toggle color</button>
-    </div>
-    <div id="square" style="width:100px; height:100px; background-color:rgb(85, 255, 85);"></div>
-    <div style="float: left">
-      <button onclick="addItem();">add item</button>
-      <ul id="list">
-        <li> Item 1 </li>
-      </ul>
-    </div>
-  </body>
+    </script>
+    <body>
+        <div>
+            <button id="mybutton" onclick="toggleColor();">toggle color</button>
+        </div>
+        <div id="square" style="width:100px; height:100px; background-color:rgb(85, 255, 85);"></div>
+        <div style="float: left">
+            <button onclick="addItem();">add item</button>
+            <ul id="list">
+                <li> Item 1 </li>
+            </ul>
+        </div>
+    </body>
 </html>
