@@ -1,20 +1,21 @@
 {
-  "manifest_version": 2,
+    "manifest_version": 2,
 
-  "name": "button",
-  "description": "",
-  "version": "1.0",
+    "name": "DOM viz",
+    "description": "Visually highlights DOM mutations",
+    "version": "1.0",
+    "incognito": "split",
 
-  "content_scripts": [
-    {
-      "matches":["http://*/*", "https://*/*"],
-      "js": [
-        "/mutation-summary/src/mutation-summary.js",
-        "button_listen.js"
-      ],
-      "css": ["style/animation-styles.css"]
-    }
-  ],
+    "content_scripts": [
+        {
+            "matches":["http://*/*", "https://*/*"],
+            "js": [
+                "/mutation-summary/src/mutation-summary.js",
+                "dom-viz.js"
+            ],
+            "css": ["style/animation-styles.css"]
+        }
+    ],
 
-  "web_accessible_resources": ["style/animation-styles.css"]
+    "web_accessible_resources": ["style/animation-styles.css"]
 }
